@@ -53,20 +53,24 @@ size_t size_tree( Node *tree ) {
   }
 }
 
-void apply_to_tree( Node *tree, int (*f_ptr)(int) ) {
+void reduce_tree( Node *tree, void (*f_ptr)( int, int* ), int *result ) {
   if( tree != NULL ) {
-    apply_to_tree( tree->left, f_ptr );
-    apply_to_tree( tree->right, f_ptr );
-    tree->value = (*f_ptr)( tree->value );
+    reduce_tree( tree->left, f_ptr, result );
+    reduce_tree( tree->right, f_ptr, result );
+    (*f_ptr)( tree->value, result );
   }
 }
 
-int sq( int x ) {
-  return x * x;
+void sum( int x, int *result ) {
+  *result += x;
+}
+
+void mult( int x, int *result ) {
+  *result *= x;
 }
 
 void build_demo_tree(void) {
-  Node *tree = insert_node( NULL, 0 );
+  Node *tree = insert_node( NULL, -1 );
   tree = insert_node( tree, 10 );
   tree = insert_node( tree, 5 );
   tree = insert_node( tree, 1 );
@@ -74,8 +78,9 @@ void build_demo_tree(void) {
   tree = insert_node( tree, 8 );
   print_tree( tree );
   printf( "Tree has %zu items.\n", size_tree( tree ) );
-  apply_to_tree( tree, sq );
-  print_tree( tree );
+  int treemult = 1;
+  reduce_tree( tree, mult, &treemult );
+  printf( "Treemult = %d\n", treemult );
   delete_tree( tree );
 }
 
