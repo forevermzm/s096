@@ -83,13 +83,31 @@ size_t binary_search( int *data, size_t N, int value ) {
   return ( hi == lo && data[lo] == value ) ? lo : N;
 }
 
+size_t binary_search2( int *data, size_t N, int value ) {
+  long long int lo = 0, hi = N - 1;
+
+  while( lo <= hi ) {
+    long long int mid = lo + ( hi - lo ) / 2;
+
+    if( value == data[mid] ) {
+      return mid;
+    }else if( value < data[mid] ) {
+      hi = mid - 1;
+    }else{
+      lo = mid + 1;
+    }
+  }
+
+  return N;
+}
+
 /************ TESTING ************/
 
 void test_is_prime(void) {
   int N_prime = 10, N_composite = 20;
   int prime[] = { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 };
-  int composite[] = { 1, 4, 6, 8, 9, 10, 12, 14, 15, 16, 
-                     18, 20, 21, 22, 24, 25, 26, 27, 28 };
+  int composite[] = { 1,  4,  6,  8,  9, 10, 12, 14, 15, 16,
+                     18, 20, 21, 22, 24, 25, 26, 27, 28, 30 };
                      
   for( int i = 0; i < N_prime; ++i ) {
     assert( is_prime( prime[i] ) );
@@ -117,6 +135,11 @@ void test_search(void) {
   assert( binary_search( data, N, 10 ) == 7 );
   assert( binary_search( data, N, 11 ) == 5 );
   assert( binary_search( data, N, 102 ) == 7 );
+
+  assert( binary_search2( data, N, 0 ) == 7 );
+  assert( binary_search2( data, N, 10 ) == 7 );
+  assert( binary_search2( data, N, 11 ) == 5 );
+  assert( binary_search2( data, N, 102 ) == 7 );
 }
 
 void run_all_tests(void) {
