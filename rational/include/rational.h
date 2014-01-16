@@ -4,7 +4,6 @@
 #include <cstdint>
 #include <iosfwd>
 #include <stdexcept>
-#include <iostream>
 
 class Rational {
   intmax_t _num, _den;
