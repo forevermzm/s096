@@ -26,7 +26,7 @@ release: $(SOURCES) $(HEADERS) $(COMMON)
 	$(CXX) $(FLAGS) $(CXXFLAGS) $(RELEASEFLAGS) -o $(TARGET) $(SOURCES)
 
 zip:
-	-zip $(PROG).zip $(HEADERS) $(SOURCES) Makefile
+	-zip $(PROG).zip $(HEADERS) $(SOURCES) Makefile GRADER_INFO.txt
 
 clean:
 	-rm -f $(TARGET) $(OBJECTS) $(PROG).zip
