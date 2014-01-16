@@ -19,14 +19,14 @@ List_node* create_node( int value ) {
   return new_node;
 }
 
-void list_print( List *list ) {
-  if( list->front == NULL ) {
+void list_print( List list ) {
+  if( list.front == NULL ) {
     printf( "{}\n" );
   } else {
     printf( "{ " );
 
-    List_node *p = list->front;
-    size_t length = list->length;
+    List_node *p = list.front;
+    size_t length = list.length;
 
     while( p->next != NULL && length > 0 ) {
       printf( "%d -> ", p->value );
