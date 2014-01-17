@@ -1,19 +1,25 @@
-#ifndef _AKESSLER_LIST_H
-#define _AKESSLER_LIST_H
+#ifndef _6S096_LIST_H
+#define _6S096_LIST_H
 
-#include <stdlib.h>
+#include <stddef.h>
 
 typedef struct List_node_s List_node;
 
-struct List_s {
+typedef struct List_s {
   size_t length;
   List_node *front;
-};
-typedef struct List_s List;
+} List;
 
 List empty_list( void );
-void list_append( List *list, int value );
-void list_clear( List *list );
-void list_print( List *list );
 
-#endif // _AKESSLER_LIST_H
+void list_apply( List *list, int (*function_ptr)(int) );
+int list_reduce( List *list, int (*function_ptr)(int, int) );
+
+void list_append( List *list, int value );
+void list_insert_before( List *list, int insert, int before );
+void list_delete( List *list, int value );
+
+void list_clear( List *list );
+void list_print( List list );
+
+#endif // _6S096_LIST_H
