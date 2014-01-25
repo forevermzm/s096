@@ -21,4 +21,6 @@ $(BUILD_DIR_NBODY-TEST)/gtest-all.o $(BUILD_DIR_NBODY-TEST)/gtest-all.d: CXXFLAG
 # Need to filter out -Weffc++ flag (or gtest won't compile)
 #$(BUILD_DIR_NBODY-TEST)/gtest-all.o : CXXFLAGS := $(filter-out -Weffc++,$(CXXFLAGS))
 $(OBJECTS_NBODY-TEST) : CXXFLAGS := $(filter-out -Weffc++,$(CXXFLAGS))
+$(OBJECTS_NBODY-TEST) : CXXFLAGS := $(filter-out -std=c++11,$(CXXFLAGS))
+$(OBJECTS_NBODY-TEST) : CXXFLAGS := -std=gnu++0x $(CXXFLAGS)
 $(BUILD_DIR_NBODY-TEST)/gtest-all.o : CXXFLAGS := $(filter-out -Wextra,$(CXXFLAGS))
