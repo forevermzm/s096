@@ -1,24 +1,23 @@
 vpath %.cpp test
 vpath %.cc test
 
-BUILD_DIR_NBODY-TEST := $(BUILD_DIR)/$(NBODY_NAME)-test
-TARGET_NBODY-TEST := $(INSTALL_DIR)/test/$(NBODY_NAME)-test.x
+BUILD_DIR_NBODY_TEST := $(BUILD_DIR)/$(NBODY_NAME)-test
+TARGET_NBODY_TEST := $(INSTALL_DIR)/test/$(NBODY_NAME)-test.x
 
-$(TARGET_NBODY-TEST) : $(INSTALL_DIR)/lib/lib$(NBODY_NAME).a
-$(TARGET_NBODY-TEST) : LDFLAGS += -lgcov $(INSTALL_DIR)/lib/lib$(NBODY_NAME).a
+$(TARGET_NBODY_TEST) : $(INSTALL_DIR)/lib/lib$(NBODY_NAME).a
+$(TARGET_NBODY_TEST) : LDFLAGS += -lgcov $(INSTALL_DIR)/lib/lib$(NBODY_NAME).a
 
-OBJECTS_NBODY-TEST := \
-	$(BUILD_DIR_NBODY-TEST)/gtest-all.o \
-	$(BUILD_DIR_NBODY-TEST)/rationalTest.o \
-	$(BUILD_DIR_NBODY-TEST)/$(NBODY_NAME)-test.o
+OBJECTS_NBODY_TEST := \
+	$(BUILD_DIR_NBODY_TEST)/gtest-all.o \
+	$(BUILD_DIR_NBODY_TEST)/rationalTest.o \
+	$(BUILD_DIR_NBODY_TEST)/$(NBODY_NAME)-test.o
 
-$(OBJECTS_NBODY-TEST) : CXXFLAGS += -fprofile-arcs -ftest-coverage
+$(OBJECTS_NBODY_TEST) : CXXFLAGS += -fprofile-arcs -ftest-coverage
 
 # Settings for gtest
-CXXFLAGS := -I$(DEV_DIR)/include -I$(GTEST_DIR)/include $(CXXFLAGS)
+INCLUDE_FLAGS := -I$(DEV_DIR)/include -I$(GTEST_DIR)/include $(INCLUDE_FLAGS)
 vpath %.cc $(GTEST_DIR)/src
-$(BUILD_DIR_NBODY-TEST)/gtest-all.o $(BUILD_DIR_NBODY-TEST)/gtest-all.d: CXXFLAGS += -I$(GTEST_DIR)/include -I$(GTEST_DIR) -I$(DEV_DIR)/test
+$(BUILD_DIR_NBODY_TEST)/gtest-all.o $(BUILD_DIR_NBODY_TEST)/gtest-all.d: INCLUDE_FLAGS += -I$(GTEST_DIR)/include -I$(GTEST_DIR) -I$(DEV_DIR)/test
 # Need to filter out -Weffc++ flag (or gtest won't compile)
-#$(BUILD_DIR_NBODY-TEST)/gtest-all.o : CXXFLAGS := $(filter-out -Weffc++,$(CXXFLAGS))
-$(OBJECTS_NBODY-TEST) : CXXFLAGS := $(filter-out -Weffc++,$(CXXFLAGS))
-$(BUILD_DIR_NBODY-TEST)/gtest-all.o : CXXFLAGS := $(filter-out -Wextra,$(CXXFLAGS))
+$(OBJECTS_NBODY_TEST) : CXXFLAGS := $(filter-out -Weffc++,$(CXXFLAGS))
+$(BUILD_DIR_NBODY_TEST)/gtest-all.o : CXXFLAGS := $(filter-out -Wextra,$(CXXFLAGS))
