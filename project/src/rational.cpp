@@ -1,9 +1,10 @@
-#include "nbody/rational.h"
-#include "nbody/gcd.h"
+#include <nbody/rational.h>
+#include <nbody/gcd.h>
 
 #include <stdexcept>
 #include <ostream>
 #include <iostream>
+#include <cmath>
 
 /* Return the Rational number 1 / current rational */
 Rational Rational::inverse() const {
@@ -50,7 +51,7 @@ void Rational::normalize() {
     _den = 1; return;
   }
 
-  auto g = gcd( abs( _num ), abs( _den ) );
+  auto g = gcd( std::abs( _num ), std::abs( _den ) );
   _num /= g; _den /= g;
 
   if( _den < 0 ) {
