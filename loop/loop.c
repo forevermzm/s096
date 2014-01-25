@@ -129,6 +129,6 @@ int main(void) {
   fprintf( output, "%s\n", string );
   fclose( output );
 
-  free( string );
+//  free( string );
   return 0;
 }

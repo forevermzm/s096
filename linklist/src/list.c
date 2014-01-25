@@ -22,14 +22,14 @@ List_node* create_node( int value ) {
 /* This function is filled out to give an example of
    how one might traverse a list object to print it
    and is intended for your own testing purposes. */
-void list_print( List *list ) {
-  if( list->front == NULL ) {
+void list_print( List list ) {
+  if( list.front == NULL ) {
     printf( "{}\n" );
   } else {
     printf( "{ " );
 
-    List_node *p = list->front;
-    size_t length = list->length;
+    List_node *p = list.front;
+    size_t length = list.length;
 
     while( p->next != NULL && length > 0 ) {
       printf( "%d -> ", p->value );

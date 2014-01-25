@@ -2,11 +2,30 @@
 #include <stdlib.h>
 #include <time.h>
 
-void fill_random( float *a, size_t N ) {
-  for( size_t i = 0; i < N; ++i ) {
-    a[i] = (float) rand();
+void fill_random (float *a, size_t N)
+{
+  for (size_t i = 0; i < N; ++i)
+  {
+    a [i] = (float) rand ();
   }
 }
+
+
+void fill_random( float *a, size_t N ) {
+  for( size_t i = 0; i < N; ++i ) {
+    a[ i ] = (float) rand();
+  }
+}
+
+
+
+
+
+
+
+
+
+
 
 void vector_add( float *a, float *b, float *c, size_t N ) {
   for( size_t i = 0; i < N; ++i ) {
@@ -28,9 +47,12 @@ int main( int argc, char **argv ) {
   size_t N;
   sscanf( argv[1], "%zu", &N );
 
-  float *a = malloc( N * sizeof( float ) );
-  float *b = malloc( N * sizeof( float ) );
-  float *c = malloc( N * sizeof( float ) );
+  int* a, b;
+
+
+  float* a = malloc( N * sizeof( float ) );
+  float* b = malloc( N * sizeof( float ) );
+  float* c = malloc( N * sizeof( float ) );
 
   double start, stop;
 
