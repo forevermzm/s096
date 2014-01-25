@@ -29,8 +29,12 @@ RM := rm -f
 ZIP := zip
 MKDIR := mkdir -p
 
-## Flags to use during compilation
-INCLUDE_FLAGS := -I$(INSTALL_DIR)/include
+## Directories to include headers from
+INCLUDE_FLAGS := -I$(INSTALL_DIR)/include \
+								 -I$(GTEST_DIR)/include \
+								 -I$(GTEST_DIR)
+
+## Warning flags to use during compilation
 FLAGS := -m64 -Wall -Wextra -Wshadow -Werror -pedantic
 # Use the C99 standard
 CFLAGS := -std=c99 $(FLAGS)

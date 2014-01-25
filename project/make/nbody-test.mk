@@ -1,23 +1,42 @@
-vpath %.cpp test
-vpath %.cc test
+## Look in test/ for the unit test source files
+vpath %.cpp $(DEV_DIR)/test
 
-BUILD_DIR_NBODY_TEST := $(BUILD_DIR)/$(NBODY_NAME)-test
-TARGET_NBODY_TEST := $(INSTALL_DIR)/test/$(NBODY_NAME)-test.x
+## The result of our nbody-test compile: an executable
+## named list-test.x which will run all of our unit tests.
+TARGET_PROJ_TEST := $(INSTALL_DIR)/test/$(PROJ_NAME)-test.x
+BUILD_DIR_PROJ_TEST := $(BUILD_DIR)/$(PROJ_NAME)-test
 
-$(TARGET_NBODY_TEST) : $(INSTALL_DIR)/lib/lib$(NBODY_NAME).a
-$(TARGET_NBODY_TEST) : LDFLAGS += -lgcov $(INSTALL_DIR)/lib/lib$(NBODY_NAME).a
+## nbody-test.x depends on libnbody.a having been created first
+$(TARGET_PROJ_TEST) : $(INSTALL_DIR)/lib/lib$(PROJ_NAME).a
 
-OBJECTS_NBODY_TEST := \
-	$(BUILD_DIR_NBODY_TEST)/gtest-all.o \
-	$(BUILD_DIR_NBODY_TEST)/rationalTest.o \
-	$(BUILD_DIR_NBODY_TEST)/$(NBODY_NAME)-test.o
+## Link our nbody-test.x executable with libnbody.a and gtest
+$(TARGET_PROJ_TEST) : LDFLAGS += -lgcov $(INSTALL_DIR)/lib/lib$(PROJ_NAME).a
 
-$(OBJECTS_NBODY_TEST) : CXXFLAGS += -fprofile-arcs -ftest-coverage
+## Add lots more unit tests to this list!
+OBJECTS_PROJ_TEST := \
+	$(BUILD_DIR_PROJ_TEST)/gtest-all.o \
+	$(BUILD_DIR_PROJ_TEST)/$(PROJ_NAME)-test.o \
+	$(BUILD_DIR_PROJ_TEST)/rationalTest.o \
+	#$(BUILD_DIR_PROJ_TEST)/add-more.o \
+	#$(BUILD_DIR_PROJ_TEST)/unit-tests.o \
+	#$(BUILD_DIR_PROJ_TEST)/right-here!.o \
+	#$(BUILD_DIR_PROJ_TEST)/you-should.o \
+	#$(BUILD_DIR_PROJ_TEST)/fill-up.o \
+	#$(BUILD_DIR_PROJ_TEST)/all-these.o \
+	#$(BUILD_DIR_PROJ_TEST)/lines.o \
+	#$(BUILD_DIR_PROJ_TEST)/at.o \
+	#$(BUILD_DIR_PROJ_TEST)/least.o \
+## Add lots more unit tests to the list above!
 
-# Settings for gtest
-INCLUDE_FLAGS := -I$(DEV_DIR)/include -I$(GTEST_DIR)/include $(INCLUDE_FLAGS)
+$(OBJECTS_PROJ_TEST) : CXXFLAGS += -fprofile-arcs -ftest-coverage
+
+## Look in GTEST_DIR/src for the gtest-all.cc file
 vpath %.cc $(GTEST_DIR)/src
-$(BUILD_DIR_NBODY_TEST)/gtest-all.o $(BUILD_DIR_NBODY_TEST)/gtest-all.d: INCLUDE_FLAGS += -I$(GTEST_DIR)/include -I$(GTEST_DIR) -I$(DEV_DIR)/test
-# Need to filter out -Weffc++ flag (or gtest won't compile)
-$(OBJECTS_NBODY_TEST) : CXXFLAGS := $(filter-out -Weffc++,$(CXXFLAGS))
-$(BUILD_DIR_NBODY_TEST)/gtest-all.o : CXXFLAGS := $(filter-out -Wextra,$(CXXFLAGS))
+
+## Need to filter out -Weffc++ and -Wextra flags (or gtest won't compile)
+$(OBJECTS_PROJ_TEST) : CXXFLAGS := $(filter-out -Weffc++,$(CXXFLAGS))
+$(BUILD_DIR_PROJ_TEST)/gtest-all.o : CXXFLAGS := $(filter-out -Wextra,$(CXXFLAGS))
+
+## Needed so gtest will compile on Cygwin.
+$(OBJECTS_PROJ_TEST) : CXXFLAGS := $(filter-out -std=c++11,$(CXXFLAGS))
+$(OBJECTS_PROJ_TEST) : CXXFLAGS := -std=gnu++0x $(CXXFLAGS)
