@@ -1,0 +1,25 @@
+vpath %.cpp src
+
+NBODY_NAME := nbody
+
+BUILD_DIR_NBODY := $(BUILD_DIR)/$(NBODY_NAME)
+TARGET_NBODY := $(INSTALL_DIR)/lib/lib$(NBODY_NAME).a
+CXXFLAGS := $(CXXFLAGS)
+
+$(TARGET_NBODY) : | $(INSTALL_DIR)/include/$(NBODY_NAME)
+
+#SOURCES_NBODY := $(shell echo $(SOURCE_DIR)/src/*.cpp)
+#OBJECTS_NBODY := $(SOURCES_NBODY:.cpp=.o)
+#OBJECTS_NBODY := $(OBJECTS_NBODY:$(SOURCE_DIR)/src=$(BUILD_DIR_NBODY))
+OBJECTS_NBODY := \
+	$(BUILD_DIR_NBODY)/gcd.o \
+	$(BUILD_DIR_NBODY)/rational.o
+
+#OBJECTS_NBODY := $(shell echo $(BUILD_DIR_NBODY)/*.o)
+
+$(INSTALL_DIR)/include/$(NBODY_NAME) ::
+	$(MKDIR) $@
+	$(RSYNC) include/$(NBODY_NAME)/ $@/
+
+ARTIFACTS += $(INSTALL_DIR)/include/$(NBODY_NAME)
+

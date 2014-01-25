@@ -20,7 +20,8 @@ FLAGS := -m64 -Wall -Wextra -Wshadow -Werror -pedantic -I$(INSTALL_DIR)/include
 # Use the C99 standard
 CFLAGS := -std=c99 $(FLAGS)
 # Use the C++11 standard and warn on violations of Meyers' "Effective C++"
-CXXFLAGS := -std=c++11 -Weffc++ $(FLAGS)
+#CXXFLAGS := -std=c++11 -Weffc++ $(FLAGS)
+CXXFLAGS := -std=c++11 $(FLAGS)
 LDFLAGS := -L$(INSTALL_DIR)/lib -lm
 
 DEBUG_FLAGS := -g -O0 -D _DEBUG

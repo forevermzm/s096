@@ -1,5 +1,5 @@
-#include "project/rational.h"
-#include "project/gcd.h"
+#include "nbody/rational.h"
+#include "nbody/gcd.h"
 
 #include <stdexcept>
 #include <ostream>

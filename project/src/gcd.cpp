@@ -1,4 +1,4 @@
-#include "project/gcd.h"
+#include "nbody/gcd.h"
 
 intmax_t gcd( intmax_t a, intmax_t b ) {
   while( a * b != 0 ) {
