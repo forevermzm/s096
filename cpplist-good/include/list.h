@@ -3,7 +3,6 @@
 #include <cstddef>
 #include <stdexcept>
 
-// Forward declaration of apply/reduce
 class ApplyFunction;
 class ReduceFunction;
 class ListNode;
@@ -12,23 +11,24 @@ class List {
   size_t _length;
   ListNode *_begin;
   ListNode *_back;
+
 public: 
+  // Can use outside as List::iterator type
   class iterator {
+    friend class List;
     ListNode *_node;
   public:
-    friend ListNode* node( iterator it );
     iterator( ListNode *theNode );
     iterator& operator++();
     int& operator*();
     bool operator==( const iterator &rhs );
     bool operator!=( const iterator &rhs );
   };
-
+  // Can use outside as List::const_iterator type
   class const_iterator {
+    friend class List;
     ListNode *_node;
   public:
-    friend ListNode* node( const_iterator it );
-    const_iterator( const iterator &it ) : _node{it.node()} {}
     const_iterator( ListNode *theNode );
     const_iterator& operator++();
     const int& operator*();
@@ -37,9 +37,9 @@ public:
   };
 
   List();
+  List( const List &list );
+  List& operator=( const List &list );
   ~List();
-  List( const List &list ) = delete;
-  List& operator=( const List &list ) = delete;
   size_t length() const;
   int& value( size_t pos );
   int value( size_t pos ) const;
@@ -61,6 +61,8 @@ public:
   void apply( const ApplyFunction &interface );
   int reduce( const ReduceFunction &interface ) const;
   void print() const;
+  void clear();
+
 private:
   ListNode* node( iterator it ) { return it._node; }
   ListNode* node( const_iterator it ) { return it._node; }
