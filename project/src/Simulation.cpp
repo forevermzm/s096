@@ -16,7 +16,7 @@ namespace nbody {
     timeinfo.tm_year = 114;   // year: 2014
     timeinfo.tm_mon = 0;      // month: january
     timeinfo.tm_mday = 27;     // day: 27th
-    std::time_t tt = std::mktime( &timeinfo );
+    time_t tt = mktime( &timeinfo );
 
     system_clock::time_point tp = system_clock::from_time_t( tt );
     system_clock::duration d = system_clock::now() - tp;

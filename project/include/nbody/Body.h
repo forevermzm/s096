@@ -1,13 +1,14 @@
 #ifndef _NBODY_BODY_H
 #define _NBODY_BODY_H
 
+#include <nbody/constants.h>
 #include <nbody/Vector3.h>
 
 #include <iosfwd>
 
 namespace nbody {
 
-  class Body {
+  class NBODY_API Body {
     Vector3f _position;
     Vector3f _velocity;
     Vector3f _force;

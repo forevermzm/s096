@@ -5,7 +5,7 @@
 
 int main() {
   try {
-    nbody::Simulation sim{"simple2.txt"};
+    nbody::Simulation sim{"resources/nbody/binary-system-simple.txt"};
     for( int i = 0; i < 40; ++i ) {
       std::cout << "==EVOLUTION " << i + 1 << "\n";
       sim.saveRun();
