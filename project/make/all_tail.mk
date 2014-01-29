@@ -20,7 +20,7 @@ release : all
 
 ## Rule for making gtest executables:
 ## First we link %-test.x, then we execute it to run the unit tests.
-%-test.x : | $(INSTALL_DIR)/test
+%-test.x : | $(INSTALL_DIR)/test $(INSTALL_DIR)/test/resources
 	$(LD) -o $@ $^ $(LDFLAGS)
 	$@
 
@@ -30,7 +30,7 @@ release : all
 	$(AR) rcs $@ $^
 
 ## Rule for making any regular executables - link the object files.
-%.x : | $(INSTALL_DIR)/bin
+%.x : | $(INSTALL_DIR)/bin $(INSTALL_DIR)/bin/resources
 	$(LD) -o $@ $^ $(LDFLAGS)
 
 ## The targets depend on each of their objects. If any object
@@ -86,8 +86,10 @@ clean:
 
 ## Make all of the build and install directories if they do not already exist
 $(BUILD_DIRS) $(INSTALL_DIR)/bin \
+						  $(INSTALL_DIR)/bin/resources \
 						  $(INSTALL_DIR)/include \
 							$(INSTALL_DIR)/lib \
+							$(INSTALL_DIR)/test/resources \
 							$(INSTALL_DIR)/test :
 	$(MKDIR) $@
 

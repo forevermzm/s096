@@ -1,6 +1,7 @@
 #ifndef _NBODY_SIMULATION_H
 #define _NBODY_SIMULATION_H
 
+#include <nbody/constants.h>
 #include <nbody/System.h>
 
 #include <iosfwd>
@@ -8,7 +9,7 @@
 
 namespace nbody {
 
-  class Simulation {
+  class NBODY_API Simulation {
     System *_system;
     std::string _name;
     Simulation( const Simulation& sim ) = delete;

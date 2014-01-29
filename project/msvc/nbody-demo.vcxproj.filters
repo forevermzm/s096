@@ -18,34 +18,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\Body.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\constants.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Simulation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\System.cpp">
+    <ClCompile Include="..\src\demo\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\nbody\Body.h">
-      <Filter>Header Files\nbody</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\nbody\constants.h">
-      <Filter>Header Files\nbody</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\nbody\Simulation.h">
-      <Filter>Header Files\nbody</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\nbody\System.h">
-      <Filter>Header Files\nbody</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\nbody\Vector3.h">
-      <Filter>Header Files\nbody</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

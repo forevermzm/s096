@@ -1,6 +1,7 @@
 #ifndef _NBODY_SYSTEM_H
 #define _NBODY_SYSTEM_H
 
+#include <nbody/constants.h>
 #include <nbody/Vector3.h>
 #include <nbody/Body.h>
 
@@ -9,7 +10,7 @@
 
 namespace nbody {
 
-  class System {
+  class NBODY_API System {
     size_t _nBodies;
     Body *_body;
     float _softFactor = 1e-9f;
