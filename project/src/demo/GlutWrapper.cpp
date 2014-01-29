@@ -28,7 +28,7 @@ GlutWrapper::~GlutWrapper() {
 //  glutDestroyWindow( _windowId );
 }
 
-void GlutWrapper::init( int argc, char **argv, int theWidth, int theHeight, Shaders *shaders ) {
+void GlutWrapper::init( int argc, char **argv, int theWidth, int theHeight, Shaders *shaders, size_t bufSize, float *buf ) {
 	_width = theWidth;
 	_height = theHeight;
 	if( _windowTitle == "" ) {
@@ -54,7 +54,7 @@ void GlutWrapper::init( int argc, char **argv, int theWidth, int theHeight, Shad
 
 	createWindow();
 	_program = shaders->build();
-	initVertexBuffers();
+	initVertexBuffers( bufSize, buf );
 	glGenVertexArrays( 1, &_vao );
 }
 
@@ -79,15 +79,17 @@ void GlutWrapper::createWindow() {
   }
 }
 
-const float vertexPositions[] = { 0.75f,  0.75f, 0.0f, 1.0f,
-                                  0.75f, -0.75f, 0.0f, 1.0f,
-                                 -0.75f, -0.75f, 0.0f, 1.0f  };
-
-void GlutWrapper::initVertexBuffers() {
+void GlutWrapper::initVertexBuffers( size_t bufSize, float *buf ) {
   glGenBuffers( 1, &_positionBufferObject );
 
   glBindBuffer( GL_ARRAY_BUFFER, _positionBufferObject );
-  glBufferData( GL_ARRAY_BUFFER, sizeof( vertexPositions ), vertexPositions, GL_STATIC_DRAW );
+	if( buf == nullptr ) {
+		throw std::runtime_error( "Provided a null buffer to initVertexBuffers." );
+  } else {
+		_bufSize = bufSize;
+		_buf = buf;
+		glBufferData( GL_ARRAY_BUFFER, sizeof( float ) * bufSize, _buf, GL_STATIC_DRAW );
+  }
   glBindBuffer( GL_ARRAY_BUFFER, 0 );
 }
 
@@ -99,6 +101,8 @@ void GlutWrapper::run() {
 	glutMainLoop();
 }
 
+// Jason L. McKesson's helpful debugging function
+// See http://www.arcsynthesis.org/gltut/
 void GlutWrapper::openglDebug( GLenum source, GLenum type, 
                                GLuint /*id*/, GLenum severity, GLsizei /*length*/,
                                const GLchar* message, GLvoid* /*userParam*/ ) {
