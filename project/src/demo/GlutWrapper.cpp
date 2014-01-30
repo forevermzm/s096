@@ -13,22 +13,31 @@
 GlutWrapper *GlutWrapper::_instance = nullptr;
 
 GlutWrapper::GlutWrapper() : 
-  _debugMode{Mode::NDEBUG}, _width{}, _height{}, 
-  _windowId{}, _windowTitle{} {}
+  _shaders{nullptr}, _width{}, _height{}, 
+  _windowId{}, _windowTitle{},
+  _bufSize{}, _buf{nullptr}, _positionBufferObject{},
+  _vao{}, _program{}, _debugMode{Mode::NDEBUG} {}
 
 GlutWrapper::GlutWrapper( Mode debugMode ) : 
-  _debugMode{debugMode}, _width{}, _height{}, 
-  _windowId{}, _windowTitle{} {}
+  _shaders{nullptr}, _width{}, _height{}, 
+  _windowId{}, _windowTitle{},
+  _bufSize{}, _buf{nullptr}, _positionBufferObject{},
+  _vao{}, _program{}, _debugMode{debugMode} {}
 
 GlutWrapper::GlutWrapper( const std::string &title, Mode debugMode ) : 
-  _debugMode{debugMode}, _width{}, _height{}, 
-  _windowId{}, _windowTitle{title} {}
+  _shaders{nullptr}, _width{}, _height{}, 
+  _windowId{}, _windowTitle{title},
+  _bufSize{}, _buf{nullptr}, _positionBufferObject{},
+  _vao{}, _program{}, _debugMode{debugMode} {}
 
-GlutWrapper::~GlutWrapper() {
-//  glutDestroyWindow( _windowId );
+GlutWrapper::~GlutWrapper() { 
+  // shaders should be managed outside the program
 }
 
-void GlutWrapper::init( int argc, char **argv, int theWidth, int theHeight, Shaders *shaders, size_t bufSize, float *buf ) {
+void GlutWrapper::init( int argc, char **argv, 
+                        int theWidth, int theHeight, 
+                        Shaders *shaders, 
+                        size_t bufSize, float *buf ) {
 	_width = theWidth;
 	_height = theHeight;
 	if( _windowTitle == "" ) {
