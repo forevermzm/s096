@@ -9,6 +9,11 @@
 #else
 #define NBODY_API __declspec( dllimport )
 #endif
+#include <string>
+// Make Visual Studio happy
+template class NBODY_API std::basic_string<char,
+                                           std::char_traits<char>,
+                                           std::allocator<char>>;
 #else
 #define NBODY_API 
 #endif
